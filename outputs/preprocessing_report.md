@@ -1,9 +1,9 @@
 # ThreatMoni Preprocessing Report
 
-- **Original Row Count:** 1,100
-- **Duplicates Removed:** 0
-- **Final Cleaned Rows:** 1,100
-- **Total Columns:** 17
+- **Original Row Count:** 2
+- **Duplicates Removed:** 1
+- **Final Cleaned Rows:** 1
+- **Total Columns:** 3
 
 ## Applied Transformations
 1. **Missing Value Handling:** Replaced missing categorical strings with `'Unknown'`, numerical missing values with column medians.
