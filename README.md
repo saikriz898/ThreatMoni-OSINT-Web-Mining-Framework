@@ -48,6 +48,9 @@ The framework executes a 10-stage technical workflow:
 
 ThreatMoni implements a comprehensive 9-layer OSINT system architecture connecting data acquisition, web mining, preprocessing, entity extraction, feature engineering, machine learning modeling, horizon scanning, visualization, and decision support outputs.
 
+<p align="center">
+  <img src="assets/architecture_diagram.png" alt="ThreatMoni System Architecture Diagram" width="85%"/>
+</p>
 
 ```mermaid
 flowchart TD
