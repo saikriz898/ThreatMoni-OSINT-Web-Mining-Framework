@@ -1,40 +1,80 @@
-# ThreatMoni Framework Architecture
+# ThreatMoni Architecture Documentation
 
-## High-Level System Architecture
+## Comprehensive 9-Layer OSINT System Architecture
 
-ThreatMoni is structured as a modular, 18-stage pipeline separating data ingestion, indicator-preserving preprocessing, NLP feature extraction, threat scoring, machine learning classification, horizon scanning, and interactive visualization.
+ThreatMoni implements a multi-tiered cybersecurity intelligence pipeline connecting raw open-source web feeds to prioritized decision support outputs.
+
+<p align="center">
+  <img src="../../assets/architecture_diagram.png" alt="ThreatMoni OSINT System Architecture" width="80%"/>
+</p>
+
+### System Layers & Functional Components
 
 ```mermaid
 flowchart TD
-    subgraph Data Layer
-        A[Raw OSINT Feeds\ncybersecurity_dataset.csv] --> B[Dataset Profiler & Schema Validation]
+    subgraph Layer 1: OSINT Data Ingestion
+        L1A[News Websites] --- L1B[RSS Feeds] --- L1C[CVE & NVD Databases]
+        L1D[Security Blogs & CERT Feeds] --- L1E[GitHub Repos & Threat Reports]
     end
 
-    subgraph Processing & NLP Layer
-        B --> C[Indicator-Preserving Preprocessor]
-        C --> D[NLP & Entity Extractor\nRegex + NLTK + TF-IDF]
-        D --> E[Feature Engineering Engine]
+    subgraph Layer 2: Web Mining & Data Collection
+        L2A[Web Crawling & API Extraction] --> L2B[RSS & HTML Parsing]
+        L2B --> L2C[Metadata & Content Extraction]
     end
 
-    subgraph Analytics & ML Layer
-        E --> F[Threat Scoring Engine\nSCS, TFS, IQ, TCS, TRS, TPI]
-        E --> G[Supervised Machine Learning\nLR, DT, RF, SVM, NB, XGBoost]
+    subgraph Layer 3: Data Preprocessing
+        L3A[Data Cleaning & Deduplication] --> L3B[Missing Value Handling & Noise Filtering]
+        L3B --> L3C[Tokenization & Indicator Preservation]
     end
 
-    subgraph Output & Application Layer
-        F --> H[Horizon Scanning & Priority Mapping]
-        G --> H
-        H --> I[Research Reports & Excel Export]
-        H --> J[Streamlit Interactive Dashboard]
+    subgraph Layer 4: Threat Intelligence Extraction & Correlation
+        L4A[Source Credibility Assessment] --> L4B[Named Entity Recognition (NER)]
+        L4B --> L4C[IOC & Technical Extraction]
+        L4C <--> L4D[(Threat Knowledge Base)]
+    end
+
+    subgraph Layer 5: Feature Engineering
+        L5A[Threat Frequency & Severity] --> L5B[Source Reliability & Attack Category]
+        L5B --> L5C[Geographic & Temporal Feature Vectors]
+    end
+
+    subgraph Layer 6: Machine Learning & Modeling
+        L6A[Classifiers: Random Forest, XGBoost] --- L6B[Anomaly Detection & NLP Models]
+        L6A <--> L6C[(Model Repository)]
+    end
+
+    subgraph Layer 7: Horizon Scanning & Prioritization
+        L7A[Emerging Threat Detection] --> L7B[Risk Prediction & Threat Prioritization]
+    end
+
+    subgraph Layer 8: Visualization & Dashboard
+        L8A[Streamlit Interactive Dashboard] --> L8B[Threat Maps, Timelines & Reports]
+    end
+
+    subgraph Layer 9: Outputs & Decision Support
+        L9A[Cyber Threat Intelligence] --> L9B[Threat Horizon Forecasts & Security Alerts]
+    end
+
+    L1C --> L2A
+    L2C --> L3A
+    L3C --> L4A
+    L4C --> L5A
+    L5C --> L6A
+    L6B --> L7A
+    L7B --> L8A
+    L8B --> L9A
 ```
 
-## Component Responsibilities
+---
 
-1. **DataLoader (`src/threatmoni/data_loader.py`):** Automatically discovers tabular datasets in `data/raw/` and loads primary feeds without mutating originals.
-2. **DatasetProfiler (`src/threatmoni/profiler.py`):** Inspects row/column metrics, missing values, duplicates, and discovers semantic candidates.
-3. **DataPreprocessor (`src/threatmoni/preprocessing.py`):** Sanitizes unstructured text while preserving regex patterns for `CVE-*`, IP addresses, MD5/SHA256 hashes, and MITRE ATT&CK IDs.
-4. **NLPEngine (`src/threatmoni/nlp_engine.py`):** Extracts structured technical indicators, security keywords, and TF-IDF feature matrices.
-5. **ThreatScorer (`src/threatmoni/threat_scoring.py`):** Computes Source Credibility (SCS), Intelligence Quality (IQ), Threat Confidence (TCS), Threat Risk (TRS), and Threat Priority Index (TPI).
-6. **ThreatClassifier (`src/threatmoni/model_training.py`):** Trains 6 machine learning models using stratified splitting and strict data leakage controls.
-7. **ModelEvaluator (`src/threatmoni/evaluation.py`):** Computes macro/weighted precision, recall, F1-scores, confusion matrices, and feature importances.
-8. **HorizonScanner (`src/threatmoni/horizon_scanning.py`):** Analyzes threat category trends, priority distribution, and high-risk entity clusters.
+### Layer Specifications
+
+1. **OSINT Acquisition Layer:** Collects structured and unstructured intelligence across heterogeneous web sources (News sites, RSS feeds, CVE/NVD vulnerability databases, CERT advisories, security blogs).
+2. **Web Mining Layer:** Crawls HTML pages, parses RSS feeds, calls REST APIs, and extracts structural metadata.
+3. **Preprocessing Layer:** Removes duplicate entries, imputes missing records, cleans text formatting, and preserves technical indicators (`CVE-*`, IPv4 addresses, cryptographic hashes, MITRE IDs).
+4. **Extraction & Correlation Layer:** Evaluates Source Credibility Scores (SCS), performs Named Entity Recognition (NER), extracts IOCs, and links extracted entities to the Threat Knowledge Base.
+5. **Feature Engineering Layer:** Constructs multi-dimensional feature vectors including Threat Frequency (TFS), Source Reliability, Attack Vector, Geographic Location, and Intelligence Quality (IQ).
+6. **Machine Learning Layer:** Benchmark classifiers (Random Forest, Decision Tree, Logistic Regression, SVM, Naive Bayes, XGBoost) fit on scaled training features ($X_{\text{train}}$) to predict threat categories.
+7. **Horizon Scanning Layer:** Synthesizes SCS, TFS, IQ, and Risk Scores to calculate Threat Priority Index (TPI) metrics and identify high/critical priority threats.
+8. **Visualization & Dashboard Layer:** Renders real-time interactive figures, comparative tables, record search interfaces, and threat maps.
+9. **Decision Support Output Layer:** Exports executive research reports (`ThreatMoni_Final_Report.md`), paper-ready markdown tables, and multi-sheet Excel workbooks (`ThreatMoni_Results.xlsx`).

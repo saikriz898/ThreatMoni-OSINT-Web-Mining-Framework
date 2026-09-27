@@ -2,15 +2,16 @@
   <img src="assets/logo.png" alt="ThreatMoni Logo" width="380"/>
 </p>
 
-# ThreatMoni
+<h1 align="center">ThreatMoni</h1>
+<h3 align="center">OSINT Web Mining Framework for Threat Horizon Scanning</h3>
 
-## OSINT Web Mining Framework for Threat Horizon Scanning
+<p align="center">
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework/actions"><img src="https://img.shields.io/badge/CI%20Build-Passing-brightgreen.svg" alt="CI Build"></a>
+</p>
 
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI Build](https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework/actions/workflows/tests.yml/badge.svg)](https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework/actions)
-
-ThreatMoni is a cybersecurity research framework for collecting, preprocessing, scoring, and analyzing open-source threat intelligence (OSINT) from heterogeneous data feeds. The framework combines indicator-preserving text preprocessing, natural language threat entity extraction, multi-factor risk scoring, machine learning classification, and visual threat horizon scanning to transform unstructured threat feeds into actionable, prioritized security intelligence.
+ThreatMoni is a cybersecurity research framework designed to collect, preprocess, score, and analyze open-source threat intelligence (OSINT) from heterogeneous data feeds. The framework combines indicator-preserving text preprocessing, natural language threat entity extraction, multi-factor risk scoring, machine learning classification, and visual threat horizon scanning to transform unstructured threat feeds into actionable, prioritized security intelligence.
 
 ---
 
@@ -43,23 +44,70 @@ The framework executes a 10-stage technical workflow:
 
 ---
 
-## Architecture
+## System Architecture
+
+ThreatMoni implements a comprehensive 9-layer OSINT system architecture connecting data acquisition, web mining, preprocessing, entity extraction, feature engineering, machine learning modeling, horizon scanning, visualization, and decision support outputs.
+
+<p align="center">
+  <img src="assets/architecture_diagram.png" alt="ThreatMoni System Architecture Diagram" width="85%"/>
+</p>
 
 ```mermaid
-flowchart LR
-    A[Raw OSINT Feeds] --> B[Data Profiler]
-    B --> C[Indicator Preprocessor]
-    C --> D[NLP & Entity Extractor]
-    D --> E[Feature Engineer]
-    E --> F[Threat Scoring Engine]
-    E --> G[Machine Learning]
-    F --> H[Threat Priority Mapping]
-    G --> H
-    H --> I[Horizon Scanning]
-    I --> J[Dashboard & Reports]
+flowchart TD
+    subgraph Layer 1: OSINT Data Ingestion
+        L1A[News Websites] --- L1B[RSS Feeds] --- L1C[CVE & NVD Databases]
+        L1D[Security Blogs & CERT Feeds] --- L1E[GitHub Repos & Threat Reports]
+    end
+
+    subgraph Layer 2: Web Mining & Data Collection
+        L2A[Web Crawling & API Extraction] --> L2B[RSS & HTML Parsing]
+        L2B --> L2C[Metadata & Content Extraction]
+    end
+
+    subgraph Layer 3: Data Preprocessing
+        L3A[Data Cleaning & Deduplication] --> L3B[Missing Value Handling & Noise Filtering]
+        L3B --> L3C[Tokenization & Indicator Preservation]
+    end
+
+    subgraph Layer 4: Threat Intelligence Extraction & Correlation
+        L4A[Source Credibility Assessment] --> L4B[Named Entity Recognition (NER)]
+        L4B --> L4C[IOC & Technical Extraction]
+        L4C <--> L4D[(Threat Knowledge Base)]
+    end
+
+    subgraph Layer 5: Feature Engineering
+        L5A[Threat Frequency & Severity] --> L5B[Source Reliability & Attack Category]
+        L5B --> L5C[Geographic & Temporal Feature Vectors]
+    end
+
+    subgraph Layer 6: Machine Learning & Modeling
+        L6A[Classifiers: Random Forest, XGBoost] --- L6B[Anomaly Detection & NLP Models]
+        L6A <--> L6C[(Model Repository)]
+    end
+
+    subgraph Layer 7: Horizon Scanning & Prioritization
+        L7A[Emerging Threat Detection] --> L7B[Risk Prediction & Threat Prioritization]
+    end
+
+    subgraph Layer 8: Visualization & Dashboard
+        L8A[Streamlit Interactive Dashboard] --> L8B[Threat Maps, Timelines & Reports]
+    end
+
+    subgraph Layer 9: Outputs & Decision Support
+        L9A[Cyber Threat Intelligence] --> L9B[Threat Horizon Forecasts & Security Alerts]
+    end
+
+    L1C --> L2A
+    L2C --> L3A
+    L3C --> L4A
+    L4C --> L5A
+    L5C --> L6A
+    L6B --> L7A
+    L7B --> L8A
+    L8B --> L9A
 ```
 
-*For detailed system design, see [Architecture Documentation](docs/architecture/architecture.md).*
+*For detailed component specifications, see [Architecture Documentation](docs/architecture/architecture.md).*
 
 ---
 
@@ -101,7 +149,7 @@ $$\text{TPI} = \frac{\text{TRS} \times \text{TCS}}{100}$$
 
 ---
 
-## Machine Learning
+## Machine Learning Benchmark
 
 The framework benchmarks 6 machine learning models on $N = 1,100$ OSINT records ($80/20$ stratified train/test split, random seed = 42) predicting `Threat Category` (DDoS, Malware, Phishing, Ransomware):
 
@@ -114,17 +162,37 @@ The framework benchmarks 6 machine learning models on $N = 1,100$ OSINT records 
 | **Logistic Regression** | 0.4364 | 0.4257 | 0.4280 | 0.4301 |
 | **XGBoost** | 0.4000 | 0.3942 | 0.3955 | 0.3987 |
 
+### Model Benchmark Figures
+
+| Model F1 Comparison | Top Feature Importances | Confusion Matrix (Random Forest) |
+| :---: | :---: | :---: |
+| <img src="outputs/figures/model_f1.png" width="280"/> | <img src="outputs/figures/feature_importance_random_forest.png" width="280"/> | <img src="outputs/figures/confusion_matrix_random_forest.png" width="280"/> |
+
 *Experimental setup details are documented in [Experimental Protocol](docs/experiments/experiment_setup.md) and [Evaluation Results](docs/experiments/evaluation.md).*
 
 ---
 
-## Threat Horizon Scanning
+## Threat Horizon Scanning & Research Figures
 
-Analysis of the OSINT baseline ($N = 1,100$) reveals:
+Analysis of the OSINT baseline ($N = 1,100$) reveals key threat trends and risk distributions across categories, attack vectors, and geographical locations:
 
-- **Top Priority Categories:** Ransomware and Phishing campaigns exhibit the highest mean TPI scores.
-- **Attack Vector Hotspots:** Email and Network vectors constitute over $65\%$ of high-priority threat records.
-- **Priority Tier Share:** $66.27\%$ Medium Priority ($26-50$ TPI), $33.73\%$ High Priority ($51-75$ TPI).
+### 1. Dataset & Priority Distribution
+
+| Target Class Distribution | Threat Category Share | Priority Level Distribution | TPI Score Spectrum |
+| :---: | :---: | :---: | :---: |
+| <img src="outputs/figures/class_distribution.png" width="220"/> | <img src="outputs/figures/threat_category_distribution.png" width="220"/> | <img src="outputs/figures/threat_priority_distribution.png" width="220"/> | <img src="outputs/figures/tpi_distribution.png" width="220"/> |
+
+### 2. Attack Vectors & Geographical Intelligence
+
+| Attack Vector Frequency | Geographical Origin | Threat Actor Breakdown | Raw Severity vs TPI |
+| :---: | :---: | :---: | :---: |
+| <img src="outputs/figures/attack_vector_frequency.png" width="220"/> | <img src="outputs/figures/geographical_distribution.png" width="220"/> | <img src="outputs/figures/threat_actor_frequency.png" width="220"/> | <img src="outputs/figures/severity_vs_tpi.png" width="220"/> |
+
+### 3. Horizon Priority Spectrum & Risk Predictions
+
+| Emerging Threat Priorities | Raw Risk Level Distribution |
+| :---: | :---: |
+| <img src="outputs/figures/emerging_threats.png" width="400"/> | <img src="outputs/figures/risk_level_distribution.png" width="400"/> |
 
 ---
 
@@ -138,6 +206,10 @@ ThreatMoni-OSINT-Web-Mining-Framework/
 ├── .gitignore                         # Version control ignore rules
 ├── requirements.txt                   # Dependency manifest
 ├── pyproject.toml                     # Python package manifest
+│
+├── assets/
+│   ├── logo.png                       # High-resolution ThreatMoni research logo
+│   └── architecture_diagram.png       # 9-layer system architecture diagram
 │
 ├── app/
 │   └── streamlit_app.py               # Interactive Streamlit dashboard
@@ -189,7 +261,7 @@ ThreatMoni-OSINT-Web-Mining-Framework/
 │   └── test_pipeline.py
 │
 ├── outputs/                           # Research outputs & generated artifacts
-│   ├── figures/                       # Publication figures (10 PNGs)
+│   ├── figures/                       # Publication figures (17 PNGs)
 │   ├── tables/                        # Research tables (Tables 1-9 CSVs)
 │   ├── predictions/                   # Threat priority predictions CSV
 │   ├── models/                        # Saved joblib model artifacts
@@ -285,14 +357,6 @@ Detailed research and technical documentation:
 
 - **Static Dataset Scope:** The current baseline evaluates a static OSINT sample ($N = 1,100$). Streaming real-time ingestion requires external API adapters.
 - **Proxy Formulations:** Where explicit historical source metadata is omitted from raw feeds, verified proxies based on text detail and actor classification are used (documented in [`scoring_assumptions.md`](outputs/reports/scoring_assumptions.md)).
-
----
-
-## Future Work
-
-- [ ] Live API connectors for NVD/CVE and MITRE ATT&CK feeds.
-- [ ] Integration of fine-tuned transformer models (SecBERT / CyberBERT) for named entity recognition.
-- [ ] Time-series forecasting for multi-month threat trajectory prediction.
 
 ---
 
