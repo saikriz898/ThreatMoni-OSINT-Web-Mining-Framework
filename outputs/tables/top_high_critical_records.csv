@@ -1,0 +1,21 @@
+Threat Category,Threat Actor,Attack Vector,tpi_score,threat_priority,Cleaned Threat Description
+Phishing,Anonymous,Network,73.15,High,distributed denial of service attack on public website
+Malware,Lazarus Group,Email,72.2,High,malware detected in email attachment
+Malware,Anonymous,Web,71.16,High,phishing scam targeting corporate accounts
+Phishing,Anonymous,Web,69.12,High,phishing scam targeting corporate accounts
+Malware,Lazarus Group,Network,68.52,High,ransomware attack through network vulnerability
+Malware,APT-28,Email,68.23,High,distributed denial of service attack on public website
+Malware,APT-28,Email,67.21,High,malware detected in email attachment
+Ransomware,APT-28,Web,66.48,High,distributed denial of service attack on public website
+Phishing,APT-28,Email,66.46,High,phishing scam targeting corporate accounts
+DDoS,APT-28,Network,66.29,High,distributed denial of service attack on public website
+DDoS,Lazarus Group,Web,66.25,High,phishing scam targeting corporate accounts
+Malware,APT-28,Network,65.76,High,phishing scam targeting corporate accounts
+DDoS,Unknown,Network,65.74,High,malware detected in email attachment
+DDoS,APT-28,Network,65.59,High,phishing email with malicious link
+DDoS,APT-28,Web,65.26,High,phishing scam targeting corporate accounts
+DDoS,Lazarus Group,Web,65.08,High,phishing scam targeting corporate accounts
+Malware,Anonymous,Network,64.97,High,phishing email with malicious link
+Phishing,Anonymous,Network,64.87,High,distributed denial of service attack on public website
+Phishing,Anonymous,Web,64.72,High,distributed denial of service attack on public website
+DDoS,Lazarus Group,Web,64.71,High,phishing scam targeting corporate accounts
