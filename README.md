@@ -1,10 +1,14 @@
+<p align="center">
+  <img src="assets/logo.png" alt="ThreatMoni Logo" width="380"/>
+</p>
+
 # ThreatMoni
 
 ## OSINT Web Mining Framework for Threat Horizon Scanning
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI Build](https://github.com/saikrishnan/ThreatMoni-OSINT-Web-Mining-Framework/actions/workflows/tests.yml/badge.svg)](.github/workflows/tests.yml)
+[![CI Build](https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework/actions/workflows/tests.yml/badge.svg)](https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework/actions)
 
 ThreatMoni is a cybersecurity research framework for collecting, preprocessing, scoring, and analyzing open-source threat intelligence (OSINT) from heterogeneous data feeds. The framework combines indicator-preserving text preprocessing, natural language threat entity extraction, multi-factor risk scoring, machine learning classification, and visual threat horizon scanning to transform unstructured threat feeds into actionable, prioritized security intelligence.
 
@@ -209,7 +213,7 @@ ThreatMoni-OSINT-Web-Mining-Framework/
 ### 1. Clone & Set Up Environment
 
 ```bash
-git clone https://github.com/saikrishnan/ThreatMoni-OSINT-Web-Mining-Framework.git
+git clone https://github.com/saikriz898/ThreatMoni-OSINT-Web-Mining-Framework.git
 cd ThreatMoni-OSINT-Web-Mining-Framework
 ```
 
