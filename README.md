@@ -54,47 +54,47 @@ ThreatMoni implements a comprehensive 9-layer OSINT system architecture connecti
 
 ```mermaid
 flowchart TD
-    subgraph Layer 1: OSINT Data Ingestion
-        L1A[News Websites] --- L1B[RSS Feeds] --- L1C[CVE & NVD Databases]
-        L1D[Security Blogs & CERT Feeds] --- L1E[GitHub Repos & Threat Reports]
+    subgraph L1 ["Layer 1: OSINT Data Ingestion"]
+        L1A["News Websites"] --- L1B["RSS Feeds"] --- L1C["CVE & NVD Databases"]
+        L1D["Security Blogs & CERT Feeds"] --- L1E["GitHub Repos & Threat Reports"]
     end
 
-    subgraph Layer 2: Web Mining & Data Collection
-        L2A[Web Crawling & API Extraction] --> L2B[RSS & HTML Parsing]
-        L2B --> L2C[Metadata & Content Extraction]
+    subgraph L2 ["Layer 2: Web Mining & Data Collection"]
+        L2A["Web Crawling & API Extraction"] --> L2B["RSS & HTML Parsing"]
+        L2B --> L2C["Metadata & Content Extraction"]
     end
 
-    subgraph Layer 3: Data Preprocessing
-        L3A[Data Cleaning & Deduplication] --> L3B[Missing Value Handling & Noise Filtering]
-        L3B --> L3C[Tokenization & Indicator Preservation]
+    subgraph L3 ["Layer 3: Data Preprocessing"]
+        L3A["Data Cleaning & Deduplication"] --> L3B["Missing Value Handling & Noise Filtering"]
+        L3B --> L3C["Tokenization & Indicator Preservation"]
     end
 
-    subgraph Layer 4: Threat Intelligence Extraction & Correlation
-        L4A[Source Credibility Assessment] --> L4B[Named Entity Recognition (NER)]
-        L4B --> L4C[IOC & Technical Extraction]
-        L4C <--> L4D[(Threat Knowledge Base)]
+    subgraph L4 ["Layer 4: Threat Intelligence Extraction & Correlation"]
+        L4A["Source Credibility Assessment"] --> L4B["Named Entity Recognition (NER)"]
+        L4B --> L4C["IOC & Technical Extraction"]
+        L4C <--> L4D[("Threat Knowledge Base")]
     end
 
-    subgraph Layer 5: Feature Engineering
-        L5A[Threat Frequency & Severity] --> L5B[Source Reliability & Attack Category]
-        L5B --> L5C[Geographic & Temporal Feature Vectors]
+    subgraph L5 ["Layer 5: Feature Engineering"]
+        L5A["Threat Frequency & Severity"] --> L5B["Source Reliability & Attack Category"]
+        L5B --> L5C["Geographic & Temporal Feature Vectors"]
     end
 
-    subgraph Layer 6: Machine Learning & Modeling
-        L6A[Classifiers: Random Forest, XGBoost] --- L6B[Anomaly Detection & NLP Models]
-        L6A <--> L6C[(Model Repository)]
+    subgraph L6 ["Layer 6: Machine Learning & Modeling"]
+        L6A["Classifiers: Random Forest, XGBoost"] --- L6B["Anomaly Detection & NLP Models"]
+        L6A <--> L6C[("Model Repository")]
     end
 
-    subgraph Layer 7: Horizon Scanning & Prioritization
-        L7A[Emerging Threat Detection] --> L7B[Risk Prediction & Threat Prioritization]
+    subgraph L7 ["Layer 7: Horizon Scanning & Prioritization"]
+        L7A["Emerging Threat Detection"] --> L7B["Risk Prediction & Threat Prioritization"]
     end
 
-    subgraph Layer 8: Visualization & Dashboard
-        L8A[Streamlit Interactive Dashboard] --> L8B[Threat Maps, Timelines & Reports]
+    subgraph L8 ["Layer 8: Visualization & Dashboard"]
+        L8A["Streamlit Interactive Dashboard"] --> L8B["Threat Maps, Timelines & Reports"]
     end
 
-    subgraph Layer 9: Outputs & Decision Support
-        L9A[Cyber Threat Intelligence] --> L9B[Threat Horizon Forecasts & Security Alerts]
+    subgraph L9 ["Layer 9: Outputs & Decision Support"]
+        L9A["Cyber Threat Intelligence"] --> L9B["Threat Horizon Forecasts & Security Alerts"]
     end
 
     L1C --> L2A
