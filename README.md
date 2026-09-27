@@ -48,9 +48,6 @@ The framework executes a 10-stage technical workflow:
 
 ThreatMoni implements a comprehensive 9-layer OSINT system architecture connecting data acquisition, web mining, preprocessing, entity extraction, feature engineering, machine learning modeling, horizon scanning, visualization, and decision support outputs.
 
-<p align="center">
-  <img src="assets/architecture_diagram.png" alt="ThreatMoni System Architecture Diagram" width="85%"/>
-</p>
 
 ```mermaid
 flowchart TD
@@ -450,22 +447,6 @@ Contributions are welcome. Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-## Citation
-
-If you use ThreatMoni in academic research, please cite:
-
-```bibtex
-@article{krishnan2026threatmoni,
-  title={ThreatMoni: OSINT Web Mining Framework for Threat Horizon Scanning},
-  author={Krishnan, Sai},
-  journal={Department of Computer Science and Engineering, Sri Eshwar College of Engineering},
-  year={2026}
-}
-```
-
----
 
 ## Author
 
