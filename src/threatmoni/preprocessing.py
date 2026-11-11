@@ -3,11 +3,28 @@ import re
 import pandas as pd
 import numpy as np
 import logging
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+try:
+    import nltk
+    from nltk.corpus import stopwords
+    from nltk.stem import WordNetLemmatizer
+    HAS_NLTK = True
+except ImportError:
+    nltk = None
+    HAS_NLTK = False
 
 logger = logging.getLogger("ThreatMoni.Preprocessing")
+
+DEFAULT_STOPWORDS = {
+    "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours",
+    "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers",
+    "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves",
+    "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are",
+    "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does",
+    "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until",
+    "while", "of", "at", "by", "for", "with", "about", "against", "between", "into",
+    "through", "during", "before", "after", "above", "below", "to", "from", "up", "down",
+    "in", "out", "on", "off", "over", "under", "again", "further", "then", "once"
+}
 
 class DataPreprocessor:
     """
@@ -21,11 +38,18 @@ class DataPreprocessor:
         os.makedirs(self.processed_dir, exist_ok=True)
         os.makedirs(self.outputs_dir, exist_ok=True)
 
-        try:
-            self.stop_words = set(stopwords.words('english'))
-        except Exception:
-            self.stop_words = set()
-        self.lemmatizer = WordNetLemmatizer()
+        self.stop_words = set(DEFAULT_STOPWORDS)
+        if HAS_NLTK:
+            try:
+                self.stop_words.update(stopwords.words('english'))
+            except Exception:
+                pass
+            try:
+                self.lemmatizer = WordNetLemmatizer()
+            except Exception:
+                self.lemmatizer = None
+        else:
+            self.lemmatizer = None
 
     def preserve_clean_text(self, text: str) -> str:
         """

@@ -12,7 +12,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
-import xgboost as xgb
+try:
+    import xgboost as xgb
+    HAS_XGB = True
+except ImportError:
+    xgb = None
+    HAS_XGB = False
 
 logger = logging.getLogger("ThreatMoni.ModelTraining")
 
@@ -68,14 +73,16 @@ class ThreatClassifier:
         return X_train_scaled, X_test_scaled, y_train, y_test, class_names, feature_names
 
     def get_models(self) -> Dict[str, object]:
-        return {
+        models = {
             "Logistic Regression": LogisticRegression(max_iter=1000, random_state=self.random_state),
             "Decision Tree": DecisionTreeClassifier(random_state=self.random_state),
             "Random Forest": RandomForestClassifier(n_estimators=100, random_state=self.random_state),
             "Support Vector Machine": SVC(probability=True, random_state=self.random_state),
             "Naive Bayes": GaussianNB(),
-            "XGBoost": xgb.XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=self.random_state)
         }
+        if HAS_XGB and xgb is not None:
+            models["XGBoost"] = xgb.XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=self.random_state)
+        return models
 
     def train_all_models(self, df: pd.DataFrame, target_col: str = "Threat Category") -> dict:
         X_train, X_test, y_train, y_test, class_names, feature_names = self.prepare_data(df, target_col=target_col)

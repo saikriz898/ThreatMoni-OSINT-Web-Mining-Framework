@@ -1,5 +1,8 @@
 import os
-import yaml
+try:
+    import yaml
+except ImportError:
+    yaml = None
 import pandas as pd
 import numpy as np
 import logging
@@ -34,10 +37,38 @@ class ThreatScorer:
         })
 
     def _load_config(self, path: str) -> dict:
-        if os.path.exists(path):
-            with open(path, "r", encoding="utf-8") as f:
-                return yaml.safe_load(f)
-        return {}
+        default_cfg = {
+            "tcs_parameters": {"alpha": 0.5, "beta": 0.5},
+            "scs_parameters": {
+                "default_reliability": 0.75,
+                "default_authority": 0.80,
+                "default_consistency": 0.85,
+                "default_update_freq": 0.70
+            },
+            "trs_weights": {
+                "severity_score": 0.30,
+                "tfs": 0.25,
+                "risk_level_prediction": 0.20,
+                "ioc_count": 0.15,
+                "forum_sentiment": 0.10
+            },
+            "tpi_thresholds": {
+                "low_max": 25.0,
+                "medium_max": 50.0,
+                "high_max": 75.0,
+                "critical_max": 100.0
+            },
+            "threat_priority_labels": ["Low", "Medium", "High", "Critical"]
+        }
+        if yaml is not None and os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    loaded = yaml.safe_load(f)
+                    if isinstance(loaded, dict):
+                        return loaded
+            except Exception as e:
+                logger.warning(f"Could not load scoring config from {path}: {e}. Using defaults.")
+        return default_cfg
 
     def compute_scs(self, df: pd.DataFrame) -> pd.Series:
         """

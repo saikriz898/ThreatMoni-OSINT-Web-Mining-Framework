@@ -44,7 +44,6 @@ Target Column: `Threat Category` (4 Classes: DDoS, Malware, Phishing, Ransomware
 | Decision Tree | 0.4364 | 0.4331 | 0.4334 | 0.4348 |
 | Logistic Regression | 0.4364 | 0.4257 | 0.4280 | 0.4301 |
 | Support Vector Machine | 0.4409 | 0.4167 | 0.4276 | 0.4230 |
-| XGBoost | 0.4000 | 0.3942 | 0.3955 | 0.3987 |
 
 **Best Performing Model:** `Random Forest` (Accuracy: 0.4636, Weighted F1: 0.4624)
 
